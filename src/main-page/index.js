@@ -1,13 +1,11 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './main-page.css';
 import Header from './header';
 
 function App() {
   return (
-    <div>
-      <Header>
-        
-      </Header>
+    <div className="container">
+        <Header subtitle = "AWANA Camp Tech - Cohort 3"/>
     </div>
   );
 }
