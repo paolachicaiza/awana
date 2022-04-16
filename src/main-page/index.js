@@ -7,16 +7,12 @@ import StudentForm from '../components/StudentForm';
 function App() {
   return (
     <Router>
-      <Header>
-        title="Tutor: Rostan"
-      </Header>
+      <Header subtitle="AWANA Camp Tech - Cohort 3"/>
           <Routes>    
             <Route path="/student/:id" element={<StudentForm/>} />
             <Route path="/student" element={<StudentForm/>} />
             <Route exact path="/" element={
-            <Students>
-              title="Tutor: Rostan"
-            </Students>
+            <Students title="Tutor: Roberth Soriano @rostanxd" />
             } 
             />
           </Routes>

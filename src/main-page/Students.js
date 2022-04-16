@@ -25,7 +25,7 @@ const Students = ({title}) => {
     }
    
     return(
-        <div className='container2'>
+        <div className='container'>
         <h3 className="row">
             <div className="col-md-12 mt-5 text-center">
                 {title}            
@@ -33,17 +33,14 @@ const Students = ({title}) => {
             <div className="col-md-12 mt-5 text-center">
                 <img src={photo} className="photo" alt="photo"/>                    
             </div>
-            <br/>
-            <br/>
-            <Link to={`/student/`}>
-                Add Student
-            </Link>
+            <div className="col-md-12 mt-5 text-center">
+                Students              
+            </div>
             <br/>
             <br/>
             {students.map(student =>(<p>
-                <Link to={`/student/${student.id}`} key={student.id}>{
-                    student.first_name
-                }
+                <Link to={`/student/${student.id}`} key={student.id}>
+                    {student.first_name} {student.last_name}
                 </Link>
                 &nbsp;
                 <a href="" onClick={(event)=>inactiveStudent(event,student)}>
@@ -51,6 +48,12 @@ const Students = ({title}) => {
                 </a>
                 </p>
                 ))}
+            <br/>
+            <div className="col-md-12 mt-5 text-center">
+                <Link to={`/student/`}>
+                    Add Student
+                </Link>                
+            </div>
         </h3>
         </div>
     )

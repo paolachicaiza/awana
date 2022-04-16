@@ -8,7 +8,7 @@ class Header extends Component {
                 <div className="col-md-4 mt-1">
                     <img src={logo} className="logo" alt="logo"/>                    
                 </div>
-                <div className="col-md-8 mt-5 subtitle">
+                <div className="col-md-4 mt-5 text-center subtitle">
                     {this.props.subtitle}
                 </div>
             </header>
