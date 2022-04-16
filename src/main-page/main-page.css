@@ -4,7 +4,7 @@ header{
 }
 
 .logo {
-  height: 150px;                                                                                                                                 ;
+  height: 120px;                                                                                                                                 ;
 }
 
 .subtitle{
@@ -18,9 +18,4 @@ header{
   font-size: xx-large;
   color:#002254;
   align-content: center;
-}
-
-.featuredStudent {
-  border-radius: 2px;
-  background-color: rgb(255, 190, 166);
 }
