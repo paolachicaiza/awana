@@ -16,14 +16,7 @@ const Students = ({title}) => {
         getStudents()
     },[reload])
 
-    async function inactiveStudent(event, student){
-        event.preventDefault()
-        const {id} = student
-        student.statusx = "inactive"
-        const response= await updateStudent(id,student)
-        setReload(reload=>reload+1)
-    }
-   
+
     return(
         <div className='container'>
         <h3 className="row">
@@ -33,27 +26,54 @@ const Students = ({title}) => {
             <div className="col-md-12 mt-5 text-center">
                 <img src={photo} className="photo" alt="photo"/>                    
             </div>
-            <div className="col-md-12 mt-5 text-center">
-                Students              
+            <div className="col-md-12 mt-5 text-end">
+                
+                    <Link to={`/student/`}
+                    >
+                        <button className="button">
+                        Add Student
+                        </button>
+                    </Link>                       
             </div>
             <br/>
             <br/>
-            {students.map(student =>(<p>
+            <div className="grid-container">
+                <div className="grid-header">
+                    First Name
+                    </div>
+                
+                <div className="grid-header">
+                    Last Name
+                </div>
+                <div className="grid-header"/>
+            {students.map(student =>(
+                <>
+                <div className="grid-item">
+                    {student.first_name}
+                    </div>
+                
+                <div className="grid-item">
+                    {student.last_name}
+                </div>
+
+                <div className="grid-item">
+                <Link to={`/student/${student.id}`}>
+                    View Profile
+                </Link>
+
+                </div>
+                </>
+            ))}
+            </div>
+            {/* {students.map(student =>(<p>
                 <Link to={`/student/${student.id}`} key={student.id}>
                     {student.first_name} {student.last_name}
                 </Link>
                 &nbsp;
-                <a href="" onClick={(event)=>inactiveStudent(event,student)}>
-                    Delete
-                </a>
+
                 </p>
-                ))}
+                ))} */}
             <br/>
-            <div className="col-md-12 mt-5 text-center">
-                <Link to={`/student/`}>
-                    Add Student
-                </Link>                
-            </div>
         </h3>
         </div>
     )

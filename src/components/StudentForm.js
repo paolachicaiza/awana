@@ -1,8 +1,9 @@
 import { useEffect, useState} from "react";
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useNavigate} from 'react-router-dom';
 import { getStudent as _getStudent, updateStudent, createStudent} from "../services/api"
 
 export default function StudentForm() {
+    let navigate = useNavigate();
     const { id } = useParams();
     const [student, setStudent] = useState({})
     useEffect(()=>{
@@ -12,6 +13,15 @@ export default function StudentForm() {
         }
         id && getStudent()
     },[id])
+
+    async function inactiveStudent(event, student){
+        event.preventDefault()
+        const {id} = student
+        student.statusx = "inactive"
+        const response= await updateStudent(id,student)
+        navigate("/");
+    }
+   
 
     async function submitStudent(){
         let response
@@ -33,6 +43,11 @@ export default function StudentForm() {
                 </Link>
                 <br/>
                 <br/>
+
+                {student.id && <a href="" onClick={(event)=>inactiveStudent(event,student)}>
+                    Delete
+                </a>}
+                <br/>       
             <div className="col-md-4 mt-1">
                 <label>
                     First Name:
