@@ -1,5 +1,6 @@
 import { useEffect, useState} from "react";
 import {Link, useParams, useNavigate} from 'react-router-dom';
+import CreatableSelect from 'react-select/creatable';
 import { getStudent as _getStudent, updateStudent, createStudent} from "../services/api"
 
 export default function StudentForm() {
@@ -29,6 +30,7 @@ export default function StudentForm() {
             response= await updateStudent(id,student)
         else
             response= await createStudent(student)
+        navigate("/",{state:{action:id?"Student Updated":"Student Created"}});
     }
 
     console.log(student)
@@ -48,77 +50,85 @@ export default function StudentForm() {
                     Delete
                 </a>}
                 <br/>       
-            <div className="col-md-4 mt-1">
-                <label>
-                    First Name:
-                </label>
-                <br/>
-                <input 
-                    value={student.first_name || ""} 
-                    onChange={event=>setStudent(student=>({...student, first_name:event.target.value}))}/>               
-            </div>
-            <br/>
-            <div>
-                <label>
-                    Last Name:
-                </label>
-                <br/>
-                <input 
-                    value={student.last_name || ""} 
-                    onChange={event=>setStudent(student=>({...student, last_name:event.target.value}))}/>               
-            </div>
-            <br/>  
-            <div>
-                <label>
-                    Age:
-                </label>
-                <br/>
-                <input 
-                    value={student.age || ""} 
-                    onChange={event=>setStudent(student=>({...student, age:event.target.value}))}/>               
-            </div> 
-            <br/>  
-            <div>
-                <label>
-                    Work Experience  (Please separated by commas):
-                </label>
-                <br/>
-                <input 
-                    value={student.work_experience?.join(",") || []} 
-                    onChange={event=>setStudent(student=>({...student, work_experience:event.target.value.split(",")}))}/>               
-            </div>
-            <br/> 
-            <div>
-                <label>
-                    Experience  (years):
-                </label>
-                <br/>
-                <input 
-                    value={student.years_experience || ""} 
-                    onChange={event=>setStudent(student=>({...student, years_experience:event.target.value}))}/>               
-            </div> 
-            <br/>  
-            <div>
-                <label>
-                    Tech skills  (Please separated by commas):
-                </label>
-                <br/>
-                <input 
-                    value={student.tech_skills?.join(",") || []} 
-                    onChange={event=>setStudent(student=>({...student, tech_skills:event.target.value.split(",")}))}/>               
-            </div>
-            <br/> 
-            <div>
-                <label>
-                    Soft skills  (Please separated by commas):
-                </label>
-                <br/>
-                <input 
-                    value={student.soft_skills?.join(",") || []} 
-                    onChange={event=>setStudent(student=>({...student, soft_skills:event.target.value.split(",")}))}/>               
-            </div>
-            <br/> 
-            <input type="submit" value="Submit"/>                   
+                <div className="grid-form-container">
+                    <div className="grid-form-item">
+                        First Name:
+                    </div>
+                    <div className="grid-form-item">
+                        <input 
+                            value={student.first_name || ""} 
+                            onChange={event=>setStudent(student=>({...student, first_name:event.target.value}))}/> 
+                    </div>
+                    <div className="grid-form-item">
+                        Last Name:
+                    </div>
+                    <div className="grid-form-item">
+                        <input 
+                            value={student.last_name || ""} 
+                            onChange={event=>setStudent(student=>({...student, last_name:event.target.value}))}/>           
+                    </div>
+                    <div className="grid-form-item">
+                        Age:
+                    </div>
+                    <div className="grid-form-item">
+                    <input 
+                        value={student.age || ""} 
+                        onChange={event=>setStudent(student=>({...student, age:event.target.value}))}/> 
+                    </div>
+
+                    <div className="grid-form-item">
+                        Work Experience:
+                    </div>
+
+                    <div className="grid-form-item">
+                        <CreatableSelect
+                            value={student.work_experience?.map(value=>({label:value,value}))}
+                            isMulti
+                            onChange={
+                                (
+                                    newValue
+                                  ) => {
+                                    console.log(newValue);
+                                    const work_experience = newValue.map(({value})=>value)
+                                    setStudent(student=>({...student, work_experience}))
+                                  }
+                            }
+                        />
+                        {/* <input 
+                        value={student.work_experience?.join(",") || []} 
+                        onChange={event=>setStudent(student=>({...student, work_experience:event.target.value.split(",")}))}/>   */}             
+                    </div>
+
+                    <div className="grid-form-item">
+                        Experience  (years):
+                    </div>
+
+                    <div className="grid-form-item">
+                        <input 
+                        value={student.years_experience || ""} 
+                        onChange={event=>setStudent(student=>({...student, years_experience:event.target.value}))}/>               
+                    </div>  
+
+                     <div className="grid-form-item">
+                        Tech skills:
+                    </div>
+
+                     <div className="grid-form-item">
+                        <input 
+                        value={student.tech_skills?.join(",") || []} 
+                        onChange={event=>setStudent(student=>({...student, tech_skills:event.target.value.split(",")}))}/>
+                    </div>                                                       
+                    
+                    <div className="grid-form-item">
+                        Soft skills:
+                    </div>
+                    <div className="grid-form-item">
+                    <input 
+                        value={student.soft_skills?.join(",") || []} 
+                        onChange={event=>setStudent(student=>({...student, soft_skills:event.target.value.split(",")}))}/>
+                    </div>
+                </div>
+            <input type="submit" value="Create"/>                   
         </form>
     )
 }

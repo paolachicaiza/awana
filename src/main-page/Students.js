@@ -1,9 +1,13 @@
 import { useEffect, useState} from "react";
 import photo from "./studentsPhoto.png"
 import { getStudents as _getStudents, updateStudent} from "../services/api";
-import { Link } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Students = ({title}) => {
+    const location = useLocation();
+    console.log (location)
     const [students, setStudents] = useState([])
     const [reload, setReload] = useState(0)   
     useEffect(()=>{
@@ -16,9 +20,15 @@ const Students = ({title}) => {
         getStudents()
     },[reload])
 
+    useEffect(()=>{
+        location?.state?.action && toast(location.state.action)
+        console.log ("prueba")
+    },[location?.state?.action])
+
 
     return(
         <div className='container'>
+            <ToastContainer />
         <h3 className="row">
             <div className="col-md-12 mt-5 text-center">
                 {title}            

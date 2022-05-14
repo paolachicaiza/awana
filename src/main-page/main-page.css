@@ -55,3 +55,13 @@ header{
   background-color: #4CAF50;
 }
 
+.grid-form-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px 300px;
+}
+
+.grid-form-item {
+  padding: 20px;
+  text-align: center;
+}
